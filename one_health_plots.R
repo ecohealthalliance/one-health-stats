@@ -84,30 +84,3 @@ model_together =  lm(farmer_chg~livestock_chg, data=sample_together)
 
 model_offset =  lm(farmer_chg~livestock_chg, data=sample_offset)
 
-
-
-  mutate(farmer_chg = 12*(farmer_sero - lag(farmer_sero))/(time - lag(time)))
-
-metra4 = metra2 %>%
-  mutate(farmer_samp = sample(original, n(), replace=FALSE)) %>%
-  filter(farmer_samp) %>%
-  mutate(farmer_chg = 12*(farmer_sero - lag(farmer_sero))/(time - lag(time))) %>%
-  filter(original)
-
-
-
-
-
-
-
-
-model1 <-
-model2 <- lm(farmer_chg~livestock_sero, data=metra4)
-summary(model1)
-summary(model2)
-
-
-# Simulate a process: Farmer seroprevalence rises with livestock seroprevalence
-
-metra %<>%
-  mutate(farmer_sero =
