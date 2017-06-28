@@ -25,7 +25,7 @@ metra <- read_csv(P("data", "metra_data.csv"), col_names=FALSE) %>%
 date_seq = data_frame(date=seq.POSIXt(min(metra$date), max(metra$date), "month"))
 all_simulation = full_join(metra, date_seq) %>%
   arrange(date) %>%
-  mutate(time = decimal_date(date), original = ifelse(is.na(original), FALSE, TRUE)) %>%
+  mutate(time = decimal_date(date)) %>%
   mutate(livestock_sero = na.locf(livestock_sero)) %>%
   mutate(circulation = pmax(0, livestock_sero - lag(livestock_sero))) %>%
   mutate(farmer_sero = 0.1 + c(0, cumsum(circulation[-1] + rnorm(n()-1, 0, 0.025))/5) - seq(0, 0.4, length.out =n()))
