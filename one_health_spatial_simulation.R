@@ -155,12 +155,12 @@ sim_indiv1_line = mutate(sim_indiv1_line,
   low = invlogit(p1$fit - 2*p1$se.fit),
   high = invlogit(p1$fit + 2*p1$se.fit))
 
-ggplot(sim_indiv1_sum, aes(x=bov_sero, y=hum_sero)) +
-  geom_ribbon(data = sim_indiv1_line, mapping=aes(ymin=low, ymax=high), alpha=0.5) +
+temporal_plot_1 = ggplot(sim_indiv1_sum, aes(x=bov_sero, y=hum_sero)) +
+  geom_ribbon(data = sim_indiv1_line, mapping=aes(ymin=low, ymax=high), alpha=0.4, fill="grey60") +
   geom_point(size=3) +
-  geom_line(data = sim_indiv1_line) +
+  geom_line(data = sim_indiv1_line, size=1, col = "#3366FF") +
   geom_line(data = true_line, col="red", lty=2, lwd=1, alpha=0.5) +
-  xlab("Bovine Seroprevalence") + ylab("Human Seroprevalence") +
+  xlab("Livestock Seroprevalence") + ylab("Human Seroprevalence") +
   scale_y_continuous(limits=c(0, 0.4), oob=rescale_none) + xlim(0, 0.5) +
   theme_nr
 
@@ -175,12 +175,12 @@ sim_indiv2_line = mutate(sim_indiv2_line,
                          hum_sero = invlogit(p2_site$fit),
                          low = invlogit(p2_site$fit - 2*p2_site$se.fit),
                          high = invlogit(p2_site$fit + 2*p2_site$se.fit))
-ggplot(sim_indiv2_site_sum, aes(x=bov_sero, y=hum_sero)) +
-  geom_ribbon(data = sim_indiv2_line, mapping=aes(ymin=low, ymax=high), alpha=0.5) +
+temporal_plot_2 = ggplot(sim_indiv2_site_sum, aes(x=bov_sero, y=hum_sero)) +
+  geom_ribbon(data = sim_indiv2_line, mapping=aes(ymin=low, ymax=high), alpha=0.4, fill="grey60") +
   geom_point(size=3) +
-  geom_line(data = sim_indiv2_line) +
+  geom_line(data = sim_indiv2_line, size=1, col= "#3366FF") +
   geom_line(data = true_line, col="red", lty=2, lwd=1, alpha=0.5) +
-  xlab("Bovine Seroprevalence") + ylab("Human Seroprevalence") +
+  xlab("Livestock Seroprevalence") + ylab("") +
   scale_y_continuous(limits=c(0, 0.4), oob=rescale_none) + xlim(0, 0.5) +
   theme_nr
 

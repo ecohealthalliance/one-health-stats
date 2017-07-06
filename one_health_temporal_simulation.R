@@ -63,10 +63,10 @@ stat_plot_1 =
 ggplot(sample_together, aes(x=livestock_chg, y=farmer_chg)) +
   geom_point(size=3) +
   geom_smooth(method="lm") +
-  scale_y_continuous(name = "Change in Farmer Seroprevalence", limits=c(-0.1, 0.1)) +
+  scale_y_continuous(name = "Change in Farmer\nSeroprevalence", limits=c(-0.1, 0.1)) +
   theme_nr +
-  xlab("Change in Livestock Seroprevalence")
-ggsave("stat_1.png", stat_plot_1, width = 4, height=4, units="in", dpi=150)
+  xlab("Change in Livestock\nSeroprevalence")
+#ggsave("stat_1.png", stat_plot_1, width = 4, height=4, units="in", dpi=150)
 
 
 stat_plot_2 =
@@ -74,9 +74,9 @@ stat_plot_2 =
   geom_point(size = 3) +
   geom_smooth(method="lm") +
   theme_nr +
-  scale_y_continuous(name = "Change in Farmer Seroprevalence", limits=c(-0.1, 0.1)) +
-  xlab("Change in Livestock Seroprevalence")
-ggsave("stat_2.png", stat_plot_2, width = 4, height=4, units="in", dpi=150)
+  scale_y_continuous(name = "", limits=c(-0.1, 0.1)) +
+  xlab("Change in Livestock\nSeroprevalence")
+#ggsave("stat_2.png", stat_plot_2, width = 4, height=4, units="in", dpi=150)
 
 
 
@@ -84,3 +84,10 @@ model_together =  lm(farmer_chg~livestock_chg, data=sample_together)
 
 model_offset =  lm(farmer_chg~livestock_chg, data=sample_offset)
 
+source('one_health_spatial_simulation.R')
+
+library(cowplot)
+combined_plots <- cowplot::plot_grid(stat_plot_1, stat_plot_2, temporal_plot_1, temporal_plot_2,
+                   ncol = 2, nrow = 2, labels="auto", align = "hv")
+
+cowplot::save_plot("Figure_1_sim_results.tiff", combined_plots, scale=1.5)
